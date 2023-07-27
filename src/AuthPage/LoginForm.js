@@ -32,7 +32,7 @@ const LoginForm = (props) => {
     <>
         <div className="form-title">Welcome Back</div>
 
-        {user?(
+        {sessionStorage.getItem('token')?(
           <Profile/>
         ):(
           <div>
