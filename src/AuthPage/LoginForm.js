@@ -4,6 +4,8 @@ import Button from "./components/Button";
 import Link from "./components/Link";
 import { Context, useAuth } from '../functions/context';
 import axios from 'axios';
+import { redirect } from 'react-router-dom';
+import Profile from '../Users/Profile';
 
 const LoginForm = (props) => {
   const [email,setEmail] = useState("")
@@ -15,6 +17,7 @@ const LoginForm = (props) => {
       sessionStorage.setItem('token',record.access_token);
       sessionStorage.setItem('user',JSON.stringify(record));
       setUser(record);
+      console.log(record);
     }
   }
   const onSubmit = (event) => {
@@ -29,28 +32,33 @@ const LoginForm = (props) => {
     <>
         <div className="form-title">Welcome Back</div>
 
-        <div className="form-subtitle">
-            New here? <Link onClick={() => props.onHasNoAccount()}>Sign Up</Link>
-        </div>
-
-        <form onSubmit={onSubmit}>
-            <TextInput
-            label="Email"
-            name="email"
-            placeholder="adam@lamorre.co"
-            onChange={(e) => setEmail(e.target.value)}
-            />
-
-            <TextInput
-            label="Password"
-            name="password"
-            placeholder="********"
-            type="password"
-            onChange={(e) => setPassword(e.target.value)}
-            />
-
-            <Button type="submit">Log In</Button>
-        </form>
+        {user?(
+          <Profile/>
+        ):(
+          <div>
+            <div className="form-subtitle">
+                New here? <Link onClick={() => props.onHasNoAccount()}>Sign Up</Link>
+            </div>
+            <form onSubmit={onSubmit}>
+                <TextInput
+                label="Email"
+                name="email"
+                placeholder="adam@lamorre.co"
+                onChange={(e) => setEmail(e.target.value)}
+                />
+    
+                <TextInput
+                label="Password"
+                name="password"
+                placeholder="********"
+                type="password"
+                onChange={(e) => setPassword(e.target.value)}
+                />
+    
+                <Button type="submit">Log In</Button>
+            </form>
+          </div>
+        )}
     </>
   )
 }

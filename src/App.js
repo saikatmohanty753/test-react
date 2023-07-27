@@ -10,6 +10,7 @@ function App() {
     <BrowserRouter>
     <Routes>
       <Route path="/" element={<AuthPage/>} />
+      <Route path="/profile" element={<Profile/>} />
     </Routes>
     </BrowserRouter>
   )
